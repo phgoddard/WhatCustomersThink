@@ -406,13 +406,13 @@ months = get_top('months', allcosim, nsents, dict_keyphrases)
 ```
 ### Final observations
 A cursory review of top 10 comments based on different keyphrases shows a large overlap of the same comments.
-While they show different positions in the list, and each list has on average about 3 unique items, overall we are not getting great differentiation.
+While they show different positions in the list, and each list has on average about 3 unique items, overall differentiation is currently insufficient.
 
 ### Next Steps
-This was a great first exploration into the use of word and document embeddings as an application for searching customer comments for similarity.
-While the comments varied considerably in length the keyphrases were mostly one word in length.
-Perhaps results could be improved simply using more complex queries.
-Also there are other approaches to keyphrase generation to be explored including phrase parsers like OpenIE.
-Also we can explore using large pre-existing embeddings and also fine tuning those with our own customer corpora.
+This was a first exploration into the use of word and document embeddings as an application for searching customer comments for similarity.
+Firstly, the comments varied considerably in length the keyphrases were mostly one word in length.
+A simple next step could be simply to build more complex queries.
+Secondly, there are many approaches to keyphrase generation to be explored including phrase parsers like OpenIE.
+Thirdly, we can explore using larger pre-existing embeddings and fine tune those through training with our existing customer corpora.
 Finally we did not even look at using actual comments to search for similar comments - which naturally be more complex and in the language of the domain.
-These are all fun directions to continue the exploration.
+These, and many more, are all fun directions to continue the exploration.
