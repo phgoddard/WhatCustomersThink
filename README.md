@@ -99,7 +99,7 @@ print("count with blank removed: ",len(nsents))
 nsents[4]
 ['licensing', 'and', 'no', 'support', 'for', 'older', 'technology', '.']
 ```
-### Step 3. Load Pre-trained word embeddings
+### Step 3. Load Pre-trained word embeddings and do some quick testing
 This step included downloading the GloVe word embeddings found here: https://nlp.stanford.edu/projects/glove/.
 I used the file: glove.6B.50d.txt
 
@@ -136,6 +136,27 @@ array([ 0.11008  , -0.38781  , -0.57615  , -0.27714  ,  0.70521  ,
         0.37118  ,  0.1308   , -0.45137  ,  0.25398  , -0.74392  ,
        -0.086199 ,  0.24068  , -0.64819  ,  0.83549  ,  1.2502   ,
        -0.51379  ,  0.04224  , -0.88118  ,  0.7158   ,  0.38519  ])
+
+#Run some tests on comments and keyphrases with embeddings to see how they work
+I'm using word embeddings from glove on my customer comments and keyphrases so I need to test how well glove embeddings map.
+As expected, not all words in my customer comments are included in glove, or customer comments as tokens were misspelled or short hand.
+So I went through a process of converting customer comments and keyphrases to word embeddings, cleaning data further, and researching what to do when a word is not included in the glove vectors.
+
+I ended up following a recommendation to use the 'unk' word embedding for unknown words, instead of setting them to zeros or something else.
+Here's a code snippet of that:
+
+#review all tokens not in glove_vectors (refine re step above)
+UNKNOWN = []
+for sent in nsents:
+    for word in sent:
+        if word not in glove_vectors:
+            UNKNOWN.append(word)
+print(set(UNKNOWN))
+
+#sample of unknowns that I left till another day to deal with
+{'', 'segawas', 'incentivizes', '............', 'molp', '   ', 'metalogix', 'ocina', 'ms365', '  ', 'crippleware', '204/2005', '07866777744', 'projetos', 'wgraph', 'sharepointonline', 'gdpr', 'i´m', 'microsource', 'ws2016', 'petrabytes', 'powerapps', 'sporganizer', ' ', 'nadella', 'edms', 'overburdens', 'ts2', 'refurbisher', '15years', 'piex', 'wnidows', 'compucloud', 'bay-2', 'xamarin', 'asignacion', 'fy18', 'techdata', 't&cs', ':-}', 'upted', 'partnersource', 'ax2012', 'hosters', '2012r2', 'xamarin.ios', 'reorg', 'p.a.m.', 'vsts', 'compucad', 'intelli', '.net', 'cfmd', ':o)', 'finchloom', 'spfx', 'tier1', 'pdnrph@comcast.net', 'd365', 'newworld.com', 'asfp', 'vs2017', 'ecif', 'partnercenter', 'o365', 'vs2015', 'office365', 'appsource.com', 'indemnifies', 'newworld', 'techblogs', 'excessive.it', 'vlpc', ':-(', 'tier2', 'amir@ivitv.co', 'account.live.com', 'avepoint', 'sysadmins', 'nodoby', '................', 'onedrive', '..'}
+
+
 
 ```
 ```markdown
