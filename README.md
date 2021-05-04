@@ -11,6 +11,23 @@ Markdown is a lightweight and easy-to-use syntax for styling your writing. It in
 ```markdown
 Syntax highlighted code block
 
+import re
+from math import sqrt
+import spacy
+nlp = spacy.load('en_core_web_sm')
+import pke
+import nltk
+from nltk.corpus import stopwords
+nltk.download('stopwords')
+nltk.download('universal_tagset')
+stop_words = stopwords.words('english')
+import numpy as np
+from scipy.spatial import distance
+
+#nltk.downloader stopwords
+#nltk.downloader universal_tagset
+#spacy download en # download the english model
+
 # Header 1
 ## Header 2
 ### Header 3
