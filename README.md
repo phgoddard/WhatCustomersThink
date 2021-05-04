@@ -168,10 +168,52 @@ array([-7.9149e-01,  8.6617e-01,  1.1998e-01,  9.2287e-04,  2.7760e-01,
 
 #sample of unknowns that I left till another day to deal with
 {'', 'segawas', 'incentivizes', '............', 'molp', '   ', 'metalogix', 'ocina', '  ', 'crippleware', '204/2005', '07866777744', 'projetos', 'wgraph', 'sharepointonline', 'gdpr', 'i´m', 'microsource', }
-
-
-
 ```
+### Step 4. Create doc embeddings as average from all word embeddings per comment
+There is more than one way to create doc embeddings from a list of words but for this tutorial we used the average.
+So this steps includes reading each preprocessed comment, getting the word embedding for each word (or unk), and then average them
+into a final single vector for the document.  Here's the function for that:
+
+```markdown
+def create_doc_vectors(sentences,glove_vectors): 
+    '''
+    loop through tokens for each full comment
+    get word vector for token or for unknown if token doesn't exist
+    sum the word vectors and divide by number of tokens in comment at end
+
+    params = nsents contains lists for all comments, each list contains tokens
+    DV= list of doc vectors: the average for all token vectors
+    length of DV will equal length of nsents = number of comments
+    x is a np array to add all token vectors and store a running sum
+    '''
+
+    DV=[]                                  #list for doc vectors  
+    
+    for i,sent in enumerate(sentences):    #loop through each comment in nsents
+        x = np.zeros((50))                 #np array to hold sum of word vectors for comment
+        runsum = np.zeros((50))
+        for word in sent:                  #loop through each token in comment
+            if word not in glove_vectors:  #test if token in glove
+                x=glove_vectors['unk']    #if not, get vector for unk and add it to x
+            else:
+                x=glove_vectors[word]     #else get vector for token and add it to x
+                #print("word: ",word)
+                #print(x)
+            runsum+=x                     #add x to running sum of word vectors
+        
+        #print("sum x: ",runsum)
+        #print("length x: ",len(sent))
+        #print("ave for x: ",runsum/len(sent))
+        DV.append(x/len(sent))             #divide x (the sum of word vectors) by the # of tokens = doc vector
+        
+    return DV
+DV = create_doc_vectors(nsents,glove_vectors)
+```
+#This required detailed testing, as it's not immediately obvious without doing the brute math that
+your doc averages are in fact accurate averages of the word embeddings.  You can see all the print
+statements commented out for that purpose.
+
+
 ```markdown
 # Header 1
 ## Header 2
