@@ -30,8 +30,7 @@ extractor = pke.unsupervised.TopicRank()
 
 # load the content of the document, here document is expected to be in raw
 # format (i.e. a simple text file) and preprocessing is carried out using spacy
-extractor.load_document(input='/Users/tandemseven/desktop/3 python/MS.txt'
-                        , language='en', encoding='mac-roman')
+extractor.load_document(input='../path to data/..txt')
                         
 import string
 # keyphrase candidate selection, in the case of TopicRank: sequences of nouns
@@ -44,7 +43,24 @@ extractor.candidate_weighting()
 # N-best selection, keyphrases contains the 10 highest scored candidates as
 # (keyphrase, score) tuples
 keyphrases = extractor.get_n_best(n=30)
+
+# Sample Output  
+0 ('newworld', 0.03727223506914867)
+1 ('newworld partner network', 0.022279041000711687)
+2 ('product', 0.012087648493261223)
+3 ('times', 0.011867073939491941)
+4 ('support', 0.010576520470561054)
+5 ('difficult', 0.010282139581529043)
+6 ('business', 0.010157070647847495)
+7 ('customer', 0.009308289405822616)
+8 ('office', 0.007764396498753803)
+9 ('licensing', 0.0075731972343565665)
+10 ('halve year', 0.007156489593132479)
 ```
+The output shows the top 10 ranked keyphrases with their ranking.
+I added indexes to tuples for reference.
+
+
 
 ```markdown
 # Header 1
