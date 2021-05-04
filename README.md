@@ -325,7 +325,7 @@ The way I approached this was to:
 3. Print out the top 10 comments for a select group of keyphrases
 
 ```markdown
-#Here's the code for all 3 steps
+#Here's the code for step 1
 def get_top(keyphrase, simlist, sentences, keyphrase_dict):
     #get top 10 docs - based on similarity scores - for a given keyphrase
     '''
@@ -350,6 +350,7 @@ def get_top(keyphrase, simlist, sentences, keyphrase_dict):
         x.append(doc)
         allsimscores_for_akeyphrase.append(x)
         
+#Here's the code for step 2
     #sort and slice top 10
     t = sorted(allsimscores_for_akeyphrase,key=lambda x: x[1])
     t10 = t[:10]
@@ -367,7 +368,8 @@ def get_top(keyphrase, simlist, sentences, keyphrase_dict):
         res.append(s)
         i+=1
     return res
-    
+
+#Here's the code for step 3
 #generate some top 10 results for comments based on keyphrase
 issue    = get_top('issue',allcosim, nsents, dict_keyphrases)
 problems = get_top('problems', allcosim, nsents, dict_keyphrases)
