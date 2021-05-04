@@ -64,7 +64,7 @@ I added indexes to tuples for reference.
 This step includes reading the comments file and preprocessing.  I use spacy's nlp pipeline for tokenization, the re module for normalization and text cleaning. After reviewing the output I found some empty comments that needed to be removed.  The output is a grand list of comments.
 
 ```markdown
-with open('/users/tandemseven/desktop/3 python/ms.txt',encoding='mac-roman') as f:
+with open('../path to data/..txt',encoding='mac-roman') as f:
     lines = [line.strip().split('\n') for line in f.readlines()];
     
 #run each response through spacy to preprocess and tokenize
