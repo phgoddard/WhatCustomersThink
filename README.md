@@ -1,6 +1,9 @@
 ## Welcome to the Tech Project
 
-This tutorial explores the use of word and document embeddings as a means to search and find customer comments with similar content.
+This tutorial explores the use of word and document embeddings as a means to search and find customer comments with similar content. Here are the basic steps in the tutorial.
+
+![2021-05-04_12-04-20](https://user-images.githubusercontent.com/70239535/117056197-e0d28480-acd0-11eb-9565-899e23d8f5bf.png)
+
 
 ### Markdown
 
