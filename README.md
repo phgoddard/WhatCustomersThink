@@ -44,7 +44,7 @@ extractor.candidate_weighting()
 # (keyphrase, score) tuples
 keyphrases = extractor.get_n_best(n=30)
 
-# Sample Output  
+# Sample Output  (actually generated 30 keyphrases for last step above)
 0 ('newworld', 0.03727223506914867)
 1 ('newworld partner network', 0.022279041000711687)
 2 ('product', 0.012087648493261223)
@@ -209,9 +209,71 @@ def create_doc_vectors(sentences,glove_vectors):
     return DV
 DV = create_doc_vectors(nsents,glove_vectors)
 ```
-#This required detailed testing, as it's not immediately obvious without doing the brute math that
+This required detailed testing, as it's not immediately obvious without doing the brute math that
 your doc averages are in fact accurate averages of the word embeddings.  You can see all the print
 statements commented out for that purpose.
+
+### Step 5. Create doc embeddings as average from all word embeddings per Keyphrase
+Here we create the doc embeddings for the keyphrases.
+This required a little tokenization process for the keyphrases first:
+```markdown
+kpkeys = []
+for tup in keyphrases:
+    k,v = tup
+    parts = k.split()
+    kpkeys.append(parts)
+print(kpkeys)
+
+#output for that (note we generated 30 keyphrases in step 1 above)
+[['newworld'], ['newworld', 'partner', 'network'], ['product'], ['times'], ['support'], ['difficult'], ['business'], ['customer'], ['office'], ['licensing'], ['halve', 'year'], ['triage', 'service'], ['issue'], ['advanced', 'ways'], ['information'], ['newworld', 'dynamics', 'gp'], ['client'], ['changes'], ['ms', 'blaze'], ['problems'], ['csp'], ['contact', 'person'], ['pain', 'points'], ['huge', 'market'], ['customer', 'needs'], ['great'], ['garage', 'company'], ['small', 'businesses'], ['partner', 'account', 'management', 'team'], ['months']]
+
+
+#create doc vectors for keyphrases
+
+KV=[]      #list to hold doc vectors
+KeyV={}    
+
+for k in kpkeys:                       #loop through list of keyphrases as lists of tokens
+    #print("keyphrase: ",k)
+    x = np.zeros((50))                 #np array to hold sum of word vectors for comment
+    runsum = np.zeros((50))            #np array to hold running sum
+    for keyword in k:                  #loop through each token in a keyphrase
+        #print("keyword: ",keyword)
+        if keyword not in glove_vectors:  #test if token in glove
+            x=glove_vectors['unk']        #if not, get vector for unk and add it to x
+            #print(x)
+        else:
+            x=glove_vectors[keyword]     #else get vector for token and add it to x
+            #print("word: ",keyword)
+            #print(x)
+        runsum+=x                        #add x to running sum of word vectors
+
+    #print("sum x: ",runsum)
+    #print("length x: ",len(k))
+    #print("ave for x: ",runsum/len(k))
+    KV.append(x/len(k))             #divide x (the sum of word vectors) by the # of tokens = doc vector
+ 
+#Finally we need to create a dict to map keyphrases so we can do our queries more naturally using keys
+KeyV={}                  #dictionary of keyphrases as keys and doc vectors as values
+i=0
+for tup in keyphrases:   #loop through keyphrases as tuple list        
+    k,v = tup            #get the keyphrase name as k, discard the value
+    KeyV[k]=KV[i]        #store the name as the key and the doc vector from KV as the value, using index
+    i+=1
+    
+#example indexing into this dictionary
+#check out keyphrase vector
+KeyV['product']
+array([ 0.15882 , -0.27394 ,  0.25375 ,  0.76122 ,  0.30715 ,  0.71313 ,
+       -0.59602 , -1.6259  ,  0.8165  ,  0.89072 ,  0.85715 ,  0.041891,
+       -0.18236 , -0.55229 ,  0.69153 ,  0.43658 , -0.3366  ,  0.38019 ,
+        0.40122 , -1.03    ,  0.6051  , -0.99571 , -0.068696, -0.012285,
+       -0.38867 , -0.58734 , -0.62828 ,  0.2158  ,  0.66878 ,  0.19838 ,
+        3.2414  , -0.051321,  0.091042, -0.35763 , -0.055053, -0.21982 ,
+       -0.22069 ,  0.80755 ,  0.075926, -0.49719 ,  0.31928 , -0.30923 ,
+       -0.14765 , -0.047711,  0.024934,  0.21341 ,  0.20546 ,  0.76339 ,
+        0.3806  ,  0.70857 ])
+```
 
 
 ```markdown
