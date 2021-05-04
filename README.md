@@ -154,7 +154,7 @@ for sent in nsents:
 print(set(UNKNOWN))
 
 #sample of unknowns that I left till another day to deal with
-{'', 'segawas', 'incentivizes', '............', 'molp', '   ', 'metalogix', 'ocina', 'ms365', '  ', 'crippleware', '204/2005', '07866777744', 'projetos', 'wgraph', 'sharepointonline', 'gdpr', 'i´m', 'microsource', 'ws2016', 'petrabytes', 'powerapps', 'sporganizer', ' ', 'nadella', 'edms', 'overburdens', 'ts2', 'refurbisher', '15years', 'piex', 'wnidows', 'compucloud', 'bay-2', 'xamarin', 'asignacion', 'fy18', 'techdata', 't&cs', ':-}', 'upted', 'partnersource', 'ax2012', 'hosters', '2012r2', 'xamarin.ios', 'reorg', 'p.a.m.', 'vsts', 'compucad', 'intelli', '.net', 'cfmd', ':o)', 'finchloom', 'spfx', 'tier1', 'pdnrph@comcast.net', 'd365', 'newworld.com', 'asfp', 'vs2017', 'ecif', 'partnercenter', 'o365', 'vs2015', 'office365', 'appsource.com', 'indemnifies', 'newworld', 'techblogs', 'excessive.it', 'vlpc', ':-(', 'tier2', 'amir@ivitv.co', 'account.live.com', 'avepoint', 'sysadmins', 'nodoby', '................', 'onedrive', '..'}
+{'', 'segawas', 'incentivizes', '............', 'molp', '   ', 'metalogix', 'ocina', '  ', 'crippleware', '204/2005', '07866777744', 'projetos', 'wgraph', 'sharepointonline', 'gdpr', 'i´m', 'microsource', }
 
 
 
