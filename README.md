@@ -1,10 +1,6 @@
 ## Welcome to the Tech Project
 
-<h1>Hello World!</h1>
-
-You can use the [editor on GitHub](https://github.com/phgoddard/techproject/edit/main/README.md) to maintain and preview the content for your website in Markdown files.
-
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+This tutorial explores the use of word and document embeddings as a means to search and find customer comments with similar content.
 
 ### Markdown
 
