@@ -1,4 +1,5 @@
-## Welcome to the Tech Project
+## A technical tutorial using word embeddings to find similar customer comments
+### by Phil Goddard
 
 This tutorial explores the use of word and document embeddings as a means to search and find customer comments with similar content. Here are the basic steps in the tutorial.
 
