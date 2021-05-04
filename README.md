@@ -100,8 +100,8 @@ nsents[4]
 ['licensing', 'and', 'no', 'support', 'for', 'older', 'technology', '.']
 ```
 ### Step 3. Load Pre-trained word embeddings
-This step included downloading the GloVe word embeddings found here: https://nlp.stanford.edu/projects/glove/ 
-Then loading the glove vectors (I used the file: glove.6B.50d.txt).
+This step included downloading the GloVe word embeddings found here: https://nlp.stanford.edu/projects/glove/.
+I used the file: glove.6B.50d.txt
 
 ```markdown
 I found a convenience function to load the embeddings into my jupyter notebook:
@@ -123,7 +123,20 @@ glove_vectors = load_glove_vectors('.../path/glove.6B/glove.6B.50d.txt')
 #the output
 Loading Glove Model
 Loaded 400000 word
-    
+
+#Once you've loaded the embeddings, it's fun to see what's there - here's one you've probably seen before.
+glove_vectors['dog']
+array([ 0.11008  , -0.38781  , -0.57615  , -0.27714  ,  0.70521  ,
+        0.53994  , -1.0786   , -0.40146  ,  1.1504   , -0.5678   ,
+        0.0038977,  0.52878  ,  0.64561  ,  0.47262  ,  0.48549  ,
+       -0.18407  ,  0.1801   ,  0.91397  , -1.1979   , -0.5778   ,
+       -0.37985  ,  0.33606  ,  0.772    ,  0.75555  ,  0.45506  ,
+       -1.7671   , -1.0503   ,  0.42566  ,  0.41893  , -0.68327  ,
+        1.5673   ,  0.27685  , -0.61708  ,  0.64638  , -0.076996 ,
+        0.37118  ,  0.1308   , -0.45137  ,  0.25398  , -0.74392  ,
+       -0.086199 ,  0.24068  , -0.64819  ,  0.83549  ,  1.2502   ,
+       -0.51379  ,  0.04224  , -0.88118  ,  0.7158   ,  0.38519  ])
+
 ```
 ```markdown
 # Header 1
