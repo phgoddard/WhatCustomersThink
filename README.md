@@ -94,6 +94,10 @@ for i,sent in enumerate(sents):
 
 print("count with blank removed: ",len(nsents))
 
+#Sample pre-processed comment
+
+nsents[4]
+['licensing', 'and', 'no', 'support', 'for', 'older', 'technology', '.']
 
 ```
 
