@@ -226,8 +226,10 @@ print(kpkeys)
 
 #output for that (note we generated 30 keyphrases in step 1 above)
 [['newworld'], ['newworld', 'partner', 'network'], ['product'], ['times'], ['support'], ['difficult'], ['business'], ['customer'], ['office'], ['licensing'], ['halve', 'year'], ['triage', 'service'], ['issue'], ['advanced', 'ways'], ['information'], ['newworld', 'dynamics', 'gp'], ['client'], ['changes'], ['ms', 'blaze'], ['problems'], ['csp'], ['contact', 'person'], ['pain', 'points'], ['huge', 'market'], ['customer', 'needs'], ['great'], ['garage', 'company'], ['small', 'businesses'], ['partner', 'account', 'management', 'team'], ['months']]
+```
+Then we get into generating doc vectors for the keyphrases, alot like the doc vectors function above for customer comments
 
-
+```markdown
 #create doc vectors for keyphrases
 
 KV=[]      #list to hold doc vectors
@@ -274,7 +276,105 @@ array([ 0.15882 , -0.27394 ,  0.25375 ,  0.76122 ,  0.30715 ,  0.71313 ,
        -0.14765 , -0.047711,  0.024934,  0.21341 ,  0.20546 ,  0.76339 ,
         0.3806  ,  0.70857 ])
 ```
+### Step 6. Generate the Similartiy Scores
+Well here's the potential payoff of all that embedding work!
+We have to build the similarity scores - and for this we use cosine similarity.
+I have both custom code from our previous course and a quality check using scipy to verify the algo.
+```markdown
+#First the custom code
+#functions for cosine similarity
 
+def norm(vector):
+    return sqrt(sum(x * x for x in vector))    
+
+def cosine_similarity(vec_a, vec_b):
+        norm_a = norm(vec_a)
+        norm_b = norm(vec_b)
+        dot = sum(a * b for a, b in zip(vec_a, vec_b))
+        return dot / (norm_a * norm_b)
+
+#Similarity Test 1: using glove vectors
+cosine_similarity(glove_vectors['man'],glove_vectors['peace'])
+#output
+0.3716446718756
+
+#Similarity Test 2: using a keyphrase vector and Comment vector
+#store single keyphrase vector to test similarity
+X = KeyV['difficult']+KeyV['product']
+#arbitrary sentence review to get index for Y
+nsents[4]
+#output
+['licensing', 'and', 'no', 'support', 'for', 'older', 'technology', '.']
+#store doc vector for comment
+Y = DV[4]
+#test similarity score
+cosine_similarity(X,Y)
+0.7902163297637051
+#compare to scipy function for cosine similarity
+1-distance.cosine(X,Y) 
+0.7902163297637048
+```
+At this point we've confirmed out similarity code generates the same output as scipy - so that's good.
+We'll have more work to do in the next step to see what similarity it telling us.
+
+### Step 7. Generate queries and review similarity results - yea!
+Here we go - time to test everything out on real data.
+The way I approached this was to:
+1. Generate similarity scores for all comments for each keyphrase -> creating a big grand list
+2. Sort and slice off the top 10 comments with highest similarity to a keyphrase
+3. Print out the top 10 comments for a select group of keyphrases
+
+```markdown
+#Here's the code for all 3 steps
+def get_top(keyphrase, simlist, sentences, keyphrase_dict):
+    #get top 10 docs - based on similarity scores - for a given keyphrase
+    '''
+    params:
+    key_index = index of keyphrase 
+    simlist   = grandlist of sim scores: allcosim[]
+    sentences = nsents - the original list of tokenized docs
+    return:     res = list of results
+    '''
+    res = []
+    #create a term to index dict for keyphrases
+    t2i = {}
+    for i,t in keyphrase_dict.items():
+        t2i[t]=i
+    
+    allsimscores_for_akeyphrase = []
+    
+    #get all similarity scores for a given keyphrase
+    for i, doc in enumerate(simlist[t2i[keyphrase]]):
+        x = []
+        x.append(i)
+        x.append(doc)
+        allsimscores_for_akeyphrase.append(x)
+        
+    #sort and slice top 10
+    t = sorted(allsimscores_for_akeyphrase,key=lambda x: x[1])
+    t10 = t[:10]
+    
+    #print the top 10 results, and store in array
+    topcosine_with_comments = []
+    i = 1
+    print('\n',"Top ten documents most similar to keyphrase: ",keyphrase,'\n')
+    res.append(keyphrase.upper())
+    for rank,cosinescore in t10:
+        sentence = sentences[rank] 
+        s = ' '.join(sentence)
+        print(i,s)
+        res.append(i)
+        res.append(s)
+        i+=1
+    return res
+    
+#generate some top 10 results for comments based on keyphrase
+issue    = get_top('issue',allcosim, nsents, dict_keyphrases)
+problems = get_top('problems', allcosim, nsents, dict_keyphrases)
+changes = get_top('changes', allcosim, nsents, dict_keyphrases)
+business = get_top('business', allcosim, nsents, dict_keyphrases)
+months = get_top('months', allcosim, nsents, dict_keyphrases)
+```
 
 ```markdown
 # Header 1
