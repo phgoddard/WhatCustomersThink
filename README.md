@@ -67,7 +67,7 @@ This step includes reading the comments file and preprocessing.  I use spacy's n
 with open('../path to data/..txt',encoding='mac-roman') as f:
     lines = [line.strip().split('\n') for line in f.readlines()];
     
-#run each response through spacy to preprocess and tokenize
+# run each response through spacy to preprocess and tokenize
 toks=[]
 sents=[]
 i = 0
@@ -82,7 +82,7 @@ while i < len(lines):
     toks=[]
     i+=1
 
-#test for and remove blank sentences
+# test for and remove blank sentences
 nsents = []
 print("original # sentences: ", len(sents))
 
@@ -94,7 +94,7 @@ for i,sent in enumerate(sents):
 
 print("count with blank removed: ",len(nsents))
 
-#Sample pre-processed comment
+# Sample pre-processed comment
 
 nsents[4]
 ['licensing', 'and', 'no', 'support', 'for', 'older', 'technology', '.']
@@ -124,7 +124,7 @@ glove_vectors = load_glove_vectors('.../path/glove.6B/glove.6B.50d.txt')
 Loading Glove Model
 Loaded 400000 word
 
-#Once you've loaded the embeddings, it's fun to see what's there - here's one you've probably seen before.
+# Once you've loaded the embeddings, it's fun to see what's there - here's one you've probably seen before.
 glove_vectors['dog']
 array([ 0.11008  , -0.38781  , -0.57615  , -0.27714  ,  0.70521  ,
         0.53994  , -1.0786   , -0.40146  ,  1.1504   , -0.5678   ,
@@ -137,7 +137,7 @@ array([ 0.11008  , -0.38781  , -0.57615  , -0.27714  ,  0.70521  ,
        -0.086199 ,  0.24068  , -0.64819  ,  0.83549  ,  1.2502   ,
        -0.51379  ,  0.04224  , -0.88118  ,  0.7158   ,  0.38519  ])
 
-#Run some tests on comments and keyphrases with embeddings to see how they work
+# Run some tests on comments and keyphrases with embeddings to see how they work
 I'm using word embeddings from glove on my customer comments and keyphrases so I need to test how well glove embeddings map.
 As expected, not all words in my customer comments are included in glove, or customer comments as tokens were misspelled or short hand.
 So I went through a process of converting customer comments and keyphrases to word embeddings, cleaning data further, and researching what to do when a word is not included in the glove vectors.
@@ -145,7 +145,7 @@ So I went through a process of converting customer comments and keyphrases to wo
 I ended up following a recommendation to use the 'unk' word embedding for unknown words, instead of setting them to zeros or something else.
 Here's a code snippet of that:
 
-#review all tokens not in glove_vectors (refine re step above)
+# review all tokens not in glove_vectors (refine re step above)
 UNKNOWN = []
 for sent in nsents:
     for word in sent:
@@ -153,7 +153,7 @@ for sent in nsents:
             UNKNOWN.append(word)
 print(set(UNKNOWN))
 
-#in case you were curious, here's glove has for unk vector
+# in case you were curious, here's glove has for unk vector
 glove_vectors['unk']
 array([-7.9149e-01,  8.6617e-01,  1.1998e-01,  9.2287e-04,  2.7760e-01,
        -4.9185e-01,  5.0195e-01,  6.0792e-04, -2.5845e-01,  1.7865e-01,
@@ -166,7 +166,7 @@ array([-7.9149e-01,  8.6617e-01,  1.1998e-01,  9.2287e-04,  2.7760e-01,
        -1.5621e-01, -6.2655e-01, -6.2336e-01, -4.2150e-01,  4.1873e-01,
        -9.2472e-01,  1.1049e+00, -2.9996e-01, -6.3003e-03,  3.9540e-01])
 
-#sample of unknowns that I left till another day to deal with
+# sample of unknowns that I left till another day to deal with
 {'', 'segawas', 'incentivizes', '............', 'molp', '   ', 'metalogix', 'ocina', '  ', 'crippleware', '204/2005', '07866777744', 'projetos', 'wgraph', 'sharepointonline', 'gdpr', 'i´m', 'microsource', }
 ```
 ### Step 4. Create doc embeddings as average from all word embeddings per comment
@@ -224,13 +224,13 @@ for tup in keyphrases:
     kpkeys.append(parts)
 print(kpkeys)
 
-#output for that (note we generated 30 keyphrases in step 1 above)
+# output for that (note we generated 30 keyphrases in step 1 above)
 [['newworld'], ['newworld', 'partner', 'network'], ['product'], ['times'], ['support'], ['difficult'], ['business'], ['customer'], ['office'], ['licensing'], ['halve', 'year'], ['triage', 'service'], ['issue'], ['advanced', 'ways'], ['information'], ['newworld', 'dynamics', 'gp'], ['client'], ['changes'], ['ms', 'blaze'], ['problems'], ['csp'], ['contact', 'person'], ['pain', 'points'], ['huge', 'market'], ['customer', 'needs'], ['great'], ['garage', 'company'], ['small', 'businesses'], ['partner', 'account', 'management', 'team'], ['months']]
 ```
 Then we get into generating doc vectors for the keyphrases, alot like the doc vectors function above for customer comments
 
 ```markdown
-#create doc vectors for keyphrases
+# create doc vectors for keyphrases
 
 KV=[]      #list to hold doc vectors
 KeyV={}    
@@ -263,8 +263,8 @@ for tup in keyphrases:   #loop through keyphrases as tuple list
     KeyV[k]=KV[i]        #store the name as the key and the doc vector from KV as the value, using index
     i+=1
     
-#example indexing into this dictionary
-#check out keyphrase vector
+# example indexing into this dictionary
+# check out keyphrase vector
 KeyV['product']
 array([ 0.15882 , -0.27394 ,  0.25375 ,  0.76122 ,  0.30715 ,  0.71313 ,
        -0.59602 , -1.6259  ,  0.8165  ,  0.89072 ,  0.85715 ,  0.041891,
@@ -281,8 +281,8 @@ Well here's the potential payoff of all that embedding work!
 We have to build the similarity scores - and for this we use cosine similarity.
 I have both custom code from our previous course and a quality check using scipy to verify the algo.
 ```markdown
-#First the custom code
-#functions for cosine similarity
+# First the custom code
+# functions for cosine similarity
 
 def norm(vector):
     return sqrt(sum(x * x for x in vector))    
@@ -293,24 +293,24 @@ def cosine_similarity(vec_a, vec_b):
         dot = sum(a * b for a, b in zip(vec_a, vec_b))
         return dot / (norm_a * norm_b)
 
-#Similarity Test 1: using glove vectors
+# Similarity Test 1: using glove vectors
 cosine_similarity(glove_vectors['man'],glove_vectors['peace'])
-#output
+# output
 0.3716446718756
 
-#Similarity Test 2: using a keyphrase vector and Comment vector
+# Similarity Test 2: using a keyphrase vector and Comment vector
 #store single keyphrase vector to test similarity
 X = KeyV['difficult']+KeyV['product']
-#arbitrary sentence review to get index for Y
+# arbitrary sentence review to get index for Y
 nsents[4]
-#output
+# output
 ['licensing', 'and', 'no', 'support', 'for', 'older', 'technology', '.']
 #store doc vector for comment
 Y = DV[4]
-#test similarity score
+# test similarity score
 cosine_similarity(X,Y)
 0.7902163297637051
-#compare to scipy function for cosine similarity
+# compare to scipy function for cosine similarity
 1-distance.cosine(X,Y) 
 0.7902163297637048
 ```
@@ -325,7 +325,7 @@ The way I approached this was to:
 3. Print out the top 10 comments for a select group of keyphrases
 
 ```markdown
-#Here's the code for step 1
+# Here's the code for step 1
 def get_top(keyphrase, simlist, sentences, keyphrase_dict):
     #get top 10 docs - based on similarity scores - for a given keyphrase
     '''
@@ -350,7 +350,7 @@ def get_top(keyphrase, simlist, sentences, keyphrase_dict):
         x.append(doc)
         allsimscores_for_akeyphrase.append(x)
         
-#Here's the code for step 2
+# Here's the code for step 2
     #sort and slice top 10
     t = sorted(allsimscores_for_akeyphrase,key=lambda x: x[1])
     t10 = t[:10]
@@ -369,15 +369,15 @@ def get_top(keyphrase, simlist, sentences, keyphrase_dict):
         i+=1
     return res
 
-#Here's the code for step 3
-#generate some top 10 results for comments based on keyphrase
+# Here's the code for step 3
+# generate some top 10 results for comments based on keyphrase
 issue    = get_top('issue',allcosim, nsents, dict_keyphrases)
 problems = get_top('problems', allcosim, nsents, dict_keyphrases)
 changes = get_top('changes', allcosim, nsents, dict_keyphrases)
 business = get_top('business', allcosim, nsents, dict_keyphrases)
 months = get_top('months', allcosim, nsents, dict_keyphrases)
 ```
-Top 10 comments most similar to keyphrase: ISSUE
+# Top 10 comments most similar to keyphrase: ISSUE
 ```markdown
 1 newworld field has to be more in direct touch with partners , to really understand their needs , to know more about customer needs and be also more business oriented .   i still see the at subsidiary level msft field continues working in a different world vs partners and customers , sometimes even in a opposite way ( at least it seems to be like that ) . when us as partner hear from corp about overall strategies it motivates us to continue as partners , but when you try to land it at local subs it become a totally different story :-(
 2 develop saas systems which run on linux but interact with   product x and viewport desktops so very little interaction with newworld
@@ -390,7 +390,7 @@ Top 10 comments most similar to keyphrase: ISSUE
 9 nothing in the way of doing business but a painful point in that i had my newworld product stolen at a recent newworld tech event in birmingham nec , united kingdom . i did inform the nec , the police , the newworld tec event organization team  all to no avail . i have asked newworld if there is any way that they supply a replacement ( even a used one ) or a subsidized one but no one says anything ; which is pretty disappointing considering i have been a newworld professional for over 25 years and always help in the way of providing information ... etc   could you please see if something can be done , as you do n't expect to go to a ms tech event and have your tablet stolen ; i 'm lost without it .   thank you amir@ivitv.co 07866777744
 10 when we want support , we need support ; first fling is to communities . not . my wants and needs are usually the same . paint points when we need support , we need support phone or chat or email . and , we need better marketing . i can help pdnrph@comcast.net
 ```
-#Top ten documents most similar to keyphrase:  BUSINESS 
+# Top ten documents most similar to keyphrase:  BUSINESS 
 ```markdown
 1 no needs and no pain points :-)
 2 little pain point , but to be expected as a result of new developments / changes in the cloud , the multiples of changes , documents and information   :-)
@@ -403,11 +403,11 @@ Top 10 comments most similar to keyphrase: ISSUE
 9 we have little direct contact with newworld
 10 easier access to sales materials . easier methods to purchase software and licenses . brochures , sales and marketing information need snail mailed out periodically . newworld branding needs emphasized . partners need to be able to get full working evaluation software to demonstrate the product to customers not crippleware
 ```
-###Final observations
+### Final observations
 A cursory review of top 10 comments based on different keyphrases shows a large overlap of the same comments.
 While they show different positions in the list, and each list has on average about 3 unique items, overall we are not getting great differentiation.
 
-###Next Steps
+### Next Steps
 This was a great first exploration into the use of word and document embeddings as an application for searching customer comments for similarity.
 While the comments varied considerably in length the keyphrases were mostly one word in length.
 Perhaps results could be improved simply using more complex queries.
