@@ -60,7 +60,42 @@ keyphrases = extractor.get_n_best(n=30)
 The output shows the top 10 ranked keyphrases with their ranking.
 I added indexes to tuples for reference.
 
+### Step 2. Preprocess Customer Comments
+This step includes reading the comments file and preprocessing.  I use spacy's nlp pipeline for tokenization, the re module for normalization and text cleaning. After reviewing the output I found some empty comments that needed to be removed.  The output is a grand list of comments.
 
+```markdown
+with open('/users/tandemseven/desktop/3 python/ms.txt',encoding='mac-roman') as f:
+    lines = [line.strip().split('\n') for line in f.readlines()];
+    
+#run each response through spacy to preprocess and tokenize
+toks=[]
+sents=[]
+i = 0
+while i < len(lines):
+    doc = nlp(lines[i][0])
+    for tok in doc:    
+        t = tok.text.lower()       #lowercase all
+        t = re.sub('•','',t)       #remove unwanted marks, blanks
+        t = re.sub('-*$|^-*','',t) #remove dashes 
+        toks.append(t)
+    sents.append(toks)
+    toks=[]
+    i+=1
+
+#test for and remove blank sentences
+nsents = []
+print("original # sentences: ", len(sents))
+
+for i,sent in enumerate(sents):
+    if len(sent) == 0 :
+        print("line",i,"found blank")
+    else:
+        nsents.append(sent)
+
+print("count with blank removed: ",len(nsents))
+
+
+```
 
 ```markdown
 # Header 1
