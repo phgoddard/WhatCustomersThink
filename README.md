@@ -276,7 +276,7 @@ array([ 0.15882 , -0.27394 ,  0.25375 ,  0.76122 ,  0.30715 ,  0.71313 ,
        -0.14765 , -0.047711,  0.024934,  0.21341 ,  0.20546 ,  0.76339 ,
         0.3806  ,  0.70857 ])
 ```
-### Step 6. Generate the Similartiy Scores
+### Step 6. Generate the Similarity Scores
 Well here's the potential payoff of all that embedding work!
 We have to build the similarity scores - and for this we use cosine similarity.
 I have both custom code from our previous course and a quality check using scipy to verify the algo.
