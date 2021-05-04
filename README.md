@@ -98,9 +98,33 @@ print("count with blank removed: ",len(nsents))
 
 nsents[4]
 ['licensing', 'and', 'no', 'support', 'for', 'older', 'technology', '.']
-
 ```
+### Step 3. Load Pre-trained word embeddings
+This step included downloading the GloVe word embeddings found here: https://nlp.stanford.edu/projects/glove/ 
+Then loading the glove vectors (I used the file: glove.6B.50d.txt).
 
+```markdown
+I found a convenience function to load the embeddings into my jupyter notebook:
+
+def load_glove_vectors(fn):
+    print("Loading Glove Model")
+    with open( fn, 'r', encoding='utf8') as glove_vector_file:
+        model = {}
+        for line in glove_vector_file:
+            parts = line.split()
+            word = parts[0]
+            embedding = np.array([float(val) for val in parts[1:]])
+            model[word] = embedding
+        print("Loaded {} words".format(len(model)))
+    return model
+    
+glove_vectors = load_glove_vectors('.../path/glove.6B/glove.6B.50d.txt')
+
+#the output
+Loading Glove Model
+Loaded 400000 word
+    
+```
 ```markdown
 # Header 1
 ## Header 2
