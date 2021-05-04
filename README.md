@@ -379,8 +379,6 @@ months = get_top('months', allcosim, nsents, dict_keyphrases)
 ```
 Top 10 comments most similar to keyphrase: ISSUE
 ```markdown
- Top ten documents most similar to keyphrase:  issue 
-
 1 newworld field has to be more in direct touch with partners , to really understand their needs , to know more about customer needs and be also more business oriented .   i still see the at subsidiary level msft field continues working in a different world vs partners and customers , sometimes even in a opposite way ( at least it seems to be like that ) . when us as partner hear from corp about overall strategies it motivates us to continue as partners , but when you try to land it at local subs it become a totally different story :-(
 2 develop saas systems which run on linux but interact with   product x and viewport desktops so very little interaction with newworld
 3 1 . the new ocp organization and partner engagement strategy is slow to be implemented . our company has been waiting for 8 months ( still counting ) before we are fully enrolled as a co  sell ready partner . internal processes related to p  seller enrollment are extremely slow , no one seems to have any control of it in the field . 2 . account executive are not responding despite the fact that ocp partner engagement managers do the go between 3 . the way the newworld org is supposed to work is not clear : ocp vs csu vs enterprise : who is really in charge of deployments ? 4 . ms services strategy has become very unclear . we used to partner deeply with newworld services . now , everything seems to be broken since the beginning of fy18
@@ -392,7 +390,7 @@ Top 10 comments most similar to keyphrase: ISSUE
 9 nothing in the way of doing business but a painful point in that i had my newworld product stolen at a recent newworld tech event in birmingham nec , united kingdom . i did inform the nec , the police , the newworld tec event organization team  all to no avail . i have asked newworld if there is any way that they supply a replacement ( even a used one ) or a subsidized one but no one says anything ; which is pretty disappointing considering i have been a newworld professional for over 25 years and always help in the way of providing information ... etc   could you please see if something can be done , as you do n't expect to go to a ms tech event and have your tablet stolen ; i 'm lost without it .   thank you amir@ivitv.co 07866777744
 10 when we want support , we need support ; first fling is to communities . not . my wants and needs are usually the same . paint points when we need support , we need support phone or chat or email . and , we need better marketing . i can help pdnrph@comcast.net
 ```
-#Top ten documents most similar to keyphrase:  business 
+#Top ten documents most similar to keyphrase:  BUSINESS 
 ```markdown
 1 no needs and no pain points :-)
 2 little pain point , but to be expected as a result of new developments / changes in the cloud , the multiples of changes , documents and information   :-)
