@@ -391,7 +391,7 @@ months = get_top('months', allcosim, nsents, dict_keyphrases)
 9 nothing in the way of doing business but a painful point in that i had my newworld product stolen at a recent newworld tech event in birmingham nec , united kingdom . i did inform the nec , the police , the newworld tec event organization team  all to no avail . i have asked newworld if there is any way that they supply a replacement ( even a used one ) or a subsidized one but no one says anything ; which is pretty disappointing considering i have been a newworld professional for over 25 years and always help in the way of providing information ... etc   could you please see if something can be done , as you do n't expect to go to a ms tech event and have your tablet stolen ; i 'm lost without it .   thank you amir@ivitv.co 07866777744
 10 when we want support , we need support ; first fling is to communities . not . my wants and needs are usually the same . paint points when we need support , we need support phone or chat or email . and , we need better marketing . i can help pdnrph@comcast.net
 ```
-# Top ten documents most similar to keyphrase:  BUSINESS 
+# Top 10 documents most similar to keyphrase:  BUSINESS 
 ```markdown
 1 no needs and no pain points :-)
 2 little pain point , but to be expected as a result of new developments / changes in the cloud , the multiples of changes , documents and information   :-)
