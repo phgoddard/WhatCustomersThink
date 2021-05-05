@@ -410,9 +410,9 @@ While they show different positions in the list, and each list has on average ab
 
 ### Next Steps
 This was a first exploration into the use of word and document embeddings as an application for searching customer comments for similarity.
-Firstly, the comments varied considerably in length the keyphrases were mostly one word in length.
-A simple next step could be simply to build more complex queries.
-Secondly, there are many approaches to keyphrase generation to be explored including phrase parsers like OpenIE.
-Thirdly, we can explore using larger pre-existing embeddings and fine tune those through training with our existing customer corpora.
-Finally we did not even look at using actual comments to search for similar comments - which naturally be more complex and in the language of the domain.
-These, and many more, are all fun directions to continue the exploration.
+Firstly, it was very common that the comments were often quite long, often spanning multple sentences, while the keyphrases were mostly one word in length.
+It would seem that similarity scores between a single word keyphrase embedding and multi-word doc vector would have less power than using a multi-word keyphrase embedding. A simple next step could be simply to build more complex queries to test this idea.
+Related to this, there are many approaches to keyphrase generation to be explored including phrase parsers like OpenIE.
+Also, we can explore using larger pre-existing embeddings and fine tune those through training with our existing customer corpora.
+Lastly, we did not explore using actual comments to search for similar comments - which are naturally more complex and inherently in the language of the domain.
+These next steps, and many more, are all fun directions to continue the exploration.
